@@ -1,0 +1,9 @@
+messageBrokerIP = "142.93.110.148"
+messageBrokerPort = 1883
+registerInterval = 120
+ip = "142.93.110.148"
+port = 7010
+productCatalogURL = "http://64.226.79.78:7000"
+registrationEndpoint = "/services/register"
+historicalDataIP = "http://142.93.110.148:6000/historical/data"
+status = "enable"
