@@ -1,6 +1,6 @@
-import json
 import requests
 import config
+import json
 
 
 def register():
@@ -13,7 +13,7 @@ def register():
             "service_name": service_name
         }
 
-        response = requests.get(url, params=params)
+        response = requests.get(url=url, params=params)
         status_code = response.status_code
 
         if status_code == 200:
@@ -29,16 +29,21 @@ def register():
             config.historicalDataIP = response_data.get('historicalDataIP')
             config.status = response_data.get('status')
 
-            return json.dumps({"message": "DB connector configuration written to config.json"}), 200
+            print("Configuration saved.")
+            return "Configuration saved.", 200
 
         else:
-            return json.dumps({"error": f"Failed to retrieve data: Status code {status_code}"}), status_code
+            print(f"Failed to retrieve data: Status code {status_code}")
+            return f"Failed to retrieve data: Status code {status_code}", status_code
 
     except requests.exceptions.RequestException as e:
-        return json.dumps({"error": f"Request error: {e}"}), 500
+        print(f"Request error: {e}")
+        return f"Request error: {e}", 500
 
     except json.JSONDecodeError as e:
-        return json.dumps({"error": f"JSON decode error: {e}"}), 500
+        print(f"JSON decode error: {e}")
+        return f"JSON decode error: {e}", 500
 
     except Exception as e:
-        return json.dumps({"error": f"An unexpected error occurred: {e}"}), 500
+        print(f"An unexpected error occurred: {e}")
+        return f"An unexpected error occurred: {e}", 500

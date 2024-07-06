@@ -20,11 +20,16 @@ class SensorStatsAPI:
             return {"error": "No data found or failed to retrieve data"}
 
     def get_sensor_data(self, sensor_name, place_id):
-        url = f"{config.historicalDataIP}?sensor_name={sensor_name}&place_id={place_id}"
         try:
-            response = requests.get(url)
+            params = {
+                'sensor_name': sensor_name,
+                'place_id': place_id
+            }
+
+            response = requests.get(url=config.historicalDataIP, params=params)
             response.raise_for_status()
             data = response.json()
+
             return data
         except requests.exceptions.HTTPError as http_err:
             cherrypy.log(f"HTTP error occurred: {http_err}")
